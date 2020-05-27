@@ -2,6 +2,7 @@
   "name": "archdata-repos",
   "private": true,
   "scripts": {
+    "lerna": "lerna",
     "setup": "lerna bootstrap",
     "release": "lerna publish",
     "build": "lerna run build",
