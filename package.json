@@ -4,7 +4,7 @@
   "scripts": {
     "lerna": "lerna",
     "setup": "lerna bootstrap",
-    "release": "lerna publish",
+    "release": "lerna publish --force-publish",
     "build": "lerna run build",
     "test": "lerna run test"
   },
