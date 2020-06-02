@@ -5,6 +5,7 @@ import { IMongoDBConnectOptions } from "./IMongoDBConnectOptions";
 import { IMongoDBConnectorConfig } from "./IMongoDBConnectorConfig";
 
 const DefaultOptions: MongoClientOptions = {
+  useNewUrlParser: true,
   useUnifiedTopology: true,
 };
 
