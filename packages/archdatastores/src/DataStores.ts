@@ -46,7 +46,23 @@ export const DataStores = {
   composeConnect: <DataContext extends IDataContext>(
     name: string,
     dataConnects?: IDataConnects,
-  ) => () => DataStores.resolve<DataContext>(name, dataConnects),
+  ) => (options?: boolean | any): DataContext => {
+    if (options === undefined || options === false) {
+      return DataStores.resolve<DataContext>(name, dataConnects);
+    } else {
+      const Connects = dataConnects || DataConnects;
+      const { dataConnect: Connect, options: Options } = Connects.get(name);
+      const OPTIONS = options === true ? Options : options;
+
+      if (Connect === undefined) {
+        throw new Error(`UNDEFINED_DATASTORE - name: ${name}`);
+      } else if (typeof Connect.connect !== "function") {
+        throw new Error(`INVALID_DATA_CONNECT - name: ${name} - must be a function`);
+      } else {
+        return Connect.connect(OPTIONS) as DataContext;
+      }
+    }
+  },
 };
 
 Object.freeze(DataStores);
