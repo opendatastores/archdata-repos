@@ -3,6 +3,7 @@ import { createConnect } from "./core/createConnect";
 import { DataConnects } from "./DataConnects";
 import { IDataConfig } from "./IDataConfig";
 import { IDataConnects } from "./IDataConnects";
+import { InvalidDataConnectException, UndefinedDataStoreException } from "./exceptions";
 
 let INSTANCE: { [name: string]: any; } = {};
 
@@ -33,9 +34,9 @@ export const DataStores = {
       const { dataConnect: Connect, options: Options } = Connects.get(name);
 
       if (Connect === undefined) {
-        throw new Error(`UNDEFINED_DATASTORE - name: ${name}`);
+        throw new UndefinedDataStoreException(name);
       } else if (typeof Connect.connect !== "function") {
-        throw new Error(`INVALID_DATA_CONNECT - name: ${name} - must be a function`);
+        throw new InvalidDataConnectException(name);
       } else {
         INSTANCE[name] = Connect.connect(Options);
       }
@@ -56,9 +57,9 @@ export const DataStores = {
         const OPTIONS = options === true ? Options : options;
 
         if (Connect === undefined) {
-          throw new Error(`UNDEFINED_DATASTORE - name: ${name}`);
+          throw new UndefinedDataStoreException(name);
         } else if (typeof Connect.connect !== "function") {
-          throw new Error(`INVALID_DATA_CONNECT - name: ${name} - must be a function`);
+          throw new InvalidDataConnectException(name);
         } else {
           return Connect.connect(OPTIONS) as DataContext;
         }
