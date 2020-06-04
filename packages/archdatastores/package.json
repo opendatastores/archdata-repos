@@ -1,6 +1,6 @@
 {
   "name": "archdatastores",
-  "version": "3.0.0-alpha.87",
+  "version": "3.0.0-alpha.88",
   "description": "Providing Data Stores Library",
   "main": "./lib/index.js",
   "typings": "./typings/index.d.ts",
@@ -25,12 +25,12 @@
     "test-mocha-cvr": "nyc mocha -r ts-node/register/transpile-only './src/**/*.spec.ts' --timeout 60000 --exit",
     "coverage": "npm run coveralls",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build && npm run aftertests"
   },
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "dependencies": {
-    "archdatacore": "^3.0.0-alpha.87"
+    "archdatacore": "^3.0.0-alpha.88"
   },
   "devDependencies": {
     "archdevts": "20.5.1"

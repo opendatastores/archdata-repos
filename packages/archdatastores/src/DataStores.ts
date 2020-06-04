@@ -43,6 +43,10 @@ export const DataStores = {
 
     return INSTANCE[name];
   },
+  composeConnect: <DataContext extends IDataContext>(
+    name: string,
+    dataConnects?: IDataConnects,
+  ) => () => DataStores.resolve<DataContext>(name, dataConnects),
 };
 
 Object.freeze(DataStores);
