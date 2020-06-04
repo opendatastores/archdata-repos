@@ -3,7 +3,7 @@ import { DataConnects } from "./DataConnects";
 import { IDataConfigs } from "./IDataConfigs";
 import { IDataConnects } from "./IDataConnects";
 
-export const initialize = (dataConfigs: IDataConfigs, connects: IDataConnects = DataConnects) => {
+export const initializeDataConfigs = (dataConfigs: IDataConfigs, connects: IDataConnects = DataConnects) => {
   const keys = Object.keys(dataConfigs);
 
   for (const key of keys) {

@@ -12,4 +12,4 @@ export { DataStores } from "./DataStores";
 export { IDataConfig } from "./IDataConfig";
 export { IDataConfigs } from "./IDataConfigs";
 export { IDataConnects } from "./IDataConnects";
-export { initialize } from "./initialize";
+export { initializeDataConfigs } from "./initializeDataConfigs";
