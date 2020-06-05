@@ -44,7 +44,7 @@ export const DataStores = {
 
     return INSTANCE[name];
   },
-  composeDataStoreConnect: <DataContext extends IDataContext>(
+  composeStoreConnect: <DataContext extends IDataContext>(
     name: string,
     dataConnects?: IDataConnects,
   ) => ({
