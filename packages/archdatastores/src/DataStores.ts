@@ -5,6 +5,7 @@ import { IDataConfig } from "./IDataConfig";
 import { IDataConnects } from "./IDataConnects";
 import { InvalidDataConnectException, UndefinedDataStoreException } from "./exceptions";
 import { IStoresConnect } from "./IStoresConnect";
+import { ICollectionConnect } from "./ICollectionConnect";
 
 let INSTANCE: { [name: string]: any; } = {};
 
@@ -42,10 +43,12 @@ export const DataStores = {
 
     return INSTANCE[name];
   },
-  provideCollectionConnect: <Collection>(collection: string, StoresConnect: string | IStoresConnect) => (() => {
-    let COLLECTION: any;
+  provideCollectionConnect: <Collection = any>(StoresConnect: string | IStoresConnect, collection: string) => ((): ICollectionConnect<Collection> => {
+    type THandler = (collection: Collection) => Promise<void>;
+    let COLLECTION: Collection;
+    const Handlers: THandler[] = [];
 
-    return {
+    const CollectionConnect: ICollectionConnect<Collection> = {
       connect: async (): Promise<Collection> => {
         if (!COLLECTION) {
           let context: IDataContext;
@@ -53,36 +56,71 @@ export const DataStores = {
           if (typeof StoresConnect === "string") {
             context = DataStores.resolve(StoresConnect);
           } else {
-            context = StoresConnect.connect();
+            context = await StoresConnect.connect();
           }
 
           const repository = context.toRepository(collection);
           COLLECTION = await repository.collection();
+
         }
 
         return COLLECTION;
       },
-    };
-  })(),
-  provideStoresConnect: <DataContext extends IDataContext>(name: string, dataConnects?: IDataConnects): IStoresConnect<DataContext> => ({
-    connect: (options) => {
-      if (options === undefined || options === false) {
-        return DataStores.resolve<DataContext>(name, dataConnects);
-      } else {
-        const Connects = dataConnects || DataConnects;
-        const { dataConnect: Connect, options: Options } = Connects.get(name);
-        const OPTIONS = options === true ? Options : options;
+      use: (handler) => {
+        Handlers.push(handler);
 
-        if (Connect === undefined) {
-          throw new UndefinedDataStoreException(name);
-        } else if (typeof Connect.connect !== "function") {
-          throw new InvalidDataConnectException(name);
+        return CollectionConnect;
+      },
+    };
+
+    return CollectionConnect;
+  })(),
+  provideStoresConnect: <DataContext extends IDataContext>(name: string, dataConnects?: IDataConnects) => ((): IStoresConnect<DataContext> => {
+    type THandler = (context: DataContext) => Promise<void>;
+    let CONTEXT: DataContext;
+    const Handlers: THandler[] = [];
+
+    const StoresConnect: IStoresConnect<DataContext> = {
+      connect: async (options) => {
+        if (options === undefined || options === false) {
+          if (!CONTEXT) {
+            CONTEXT = DataStores.resolve<DataContext>(name, dataConnects);
+
+            for await (const handler of Handlers) {
+              await handler(CONTEXT);
+            }
+          }
+
+          return CONTEXT;
         } else {
-          return Connect.connect(OPTIONS) as DataContext;
+          const Connects = dataConnects || DataConnects;
+          const { dataConnect: Connect, options: Options } = Connects.get(name);
+          const OPTIONS = options === true ? Options : options;
+
+          if (Connect === undefined) {
+            throw new UndefinedDataStoreException(name);
+          } else if (typeof Connect.connect !== "function") {
+            throw new InvalidDataConnectException(name);
+          } else {
+            const context = Connect.connect(OPTIONS) as DataContext;
+
+            for await (const handler of Handlers) {
+              await handler(context);
+            }
+
+            return context;
+          }
         }
-      }
-    },
-  }),
+      },
+      use: (handler) => {
+        Handlers.push(handler);
+
+        return StoresConnect;
+      },
+    };
+
+    return StoresConnect;
+  })(),
 };
 
 Object.freeze(DataStores);
