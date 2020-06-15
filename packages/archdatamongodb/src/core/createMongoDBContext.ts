@@ -3,13 +3,13 @@ import { IMongoDBConnectOptions } from "../IMongoDBConnectOptions";
 import { IMongoDBConnectorConfig } from "../IMongoDBConnectorConfig";
 import { IMongoDBDataContext } from "../IMongoDBDataContext";
 
-export const createMongoDBContext = (config: IMongoDBConnectorConfig, Options: IMongoDBConnectOptions) => {
+export const createMongoDBContext = (Config: IMongoDBConnectorConfig, Options: IMongoDBConnectOptions) => {
   const ConnectClient = (() => {
     let _DBClient: MongoClient;
 
     return async () => {
       if (_DBClient === undefined) {
-        const URI = config.connection;
+        const URI = Config.connection;
         _DBClient = new MongoClient(URI, Options);
         await _DBClient.connect();
       }
@@ -20,7 +20,7 @@ export const createMongoDBContext = (config: IMongoDBConnectorConfig, Options: I
 
   const ConnectDB = async () => {
     const client = await ConnectClient();
-    const { dbName } = config;
+    const { dbName } = Config;
     const DBInstance = client.db(dbName);
 
     return DBInstance;

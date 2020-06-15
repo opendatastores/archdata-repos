@@ -4,6 +4,7 @@ import { DataConnects } from "./DataConnects";
 import { IDataConfig } from "./IDataConfig";
 import { IDataConnects } from "./IDataConnects";
 import { InvalidDataConnectException, UndefinedDataStoreException } from "./exceptions";
+import { IStoresConnect } from "./IStoresConnect";
 
 let INSTANCE: { [name: string]: any; } = {};
 
@@ -25,10 +26,7 @@ export const DataStores = {
       INSTANCE = {};
     }
   },
-  resolve: <DataContext extends IDataContext>(
-    name: string,
-    dataConnects?: IDataConnects,
-  ): DataContext => {
+  resolve: <DataContext extends IDataContext>(name: string, dataConnects?: IDataConnects): DataContext => {
     if (INSTANCE[name] === undefined) {
       const Connects = dataConnects || DataConnects;
       const { dataConnect: Connect, options: Options } = Connects.get(name);
@@ -44,11 +42,21 @@ export const DataStores = {
 
     return INSTANCE[name];
   },
-  composeStoreConnect: <DataContext extends IDataContext>(
-    name: string,
-    dataConnects?: IDataConnects,
-  ) => ({
-    connect: (options?: boolean | any): DataContext => {
+  composeCollection: <Collection>(StoresConnect: IStoresConnect<IDataContext>, collection: string) => (() => {
+    let COLLECTION: any;
+
+    return async (): Promise<Collection> => {
+      if (!COLLECTION) {
+        const store = StoresConnect.connect();
+        const repository = store.toRepository(collection);
+        COLLECTION = await repository.collection();
+      }
+
+      return COLLECTION;
+    };
+  })(),
+  provideStoresConnect: <DataContext extends IDataContext>(name: string, dataConnects?: IDataConnects): IStoresConnect<DataContext> => ({
+    connect: (options) => {
       if (options === undefined || options === false) {
         return DataStores.resolve<DataContext>(name, dataConnects);
       } else {
