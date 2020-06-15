@@ -42,17 +42,26 @@ export const DataStores = {
 
     return INSTANCE[name];
   },
-  composeCollection: <Collection>(StoresConnect: IStoresConnect<IDataContext>, collection: string) => (() => {
+  provideCollectionConnect: <Collection>(collection: string, StoresConnect: string | IStoresConnect) => (() => {
     let COLLECTION: any;
 
-    return async (): Promise<Collection> => {
-      if (!COLLECTION) {
-        const store = StoresConnect.connect();
-        const repository = store.toRepository(collection);
-        COLLECTION = await repository.collection();
-      }
+    return {
+      connect: async (): Promise<Collection> => {
+        if (!COLLECTION) {
+          let context: IDataContext;
 
-      return COLLECTION;
+          if (typeof StoresConnect === "string") {
+            context = DataStores.resolve(StoresConnect);
+          } else {
+            context = StoresConnect.connect();
+          }
+
+          const repository = context.toRepository(collection);
+          COLLECTION = await repository.collection();
+        }
+
+        return COLLECTION;
+      },
     };
   })(),
   provideStoresConnect: <DataContext extends IDataContext>(name: string, dataConnects?: IDataConnects): IStoresConnect<DataContext> => ({
