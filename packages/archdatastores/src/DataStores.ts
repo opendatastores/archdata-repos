@@ -62,6 +62,9 @@ export const DataStores = {
           const repository = context.toRepository(collection);
           COLLECTION = await repository.collection();
 
+          for await (const handler of Handlers) {
+            await handler(COLLECTION);
+          }
         }
 
         return COLLECTION;
