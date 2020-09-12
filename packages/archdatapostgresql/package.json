@@ -1,6 +1,6 @@
 {
   "name": "archdatapostgresql",
-  "version": "3.0.0-alpha.99",
+  "version": "3.0.0-alpha.100",
   "description": "Providing Data Stores using PostgreSQL",
   "main": "./lib/index.js",
   "typings": "./typings/index.d.ts",
@@ -30,13 +30,13 @@
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "dependencies": {
-    "archdatacore": "^3.0.0-alpha.99",
-    "pg": "8.2.1",
-    "uuid": "8.2.0"
+    "archdatacore": "^3.0.0-alpha.100",
+    "pg": "8.3.3",
+    "uuid": "8.3.0"
   },
   "devDependencies": {
-    "@types/pg": "7.14.3",
-    "@types/uuid": "8.0.0",
-    "archdevts": "20.5.31"
+    "@types/pg": "7.14.4",
+    "@types/uuid": "8.3.0",
+    "archdevts": "20.9.1"
   }
 }

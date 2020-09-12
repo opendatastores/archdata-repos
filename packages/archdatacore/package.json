@@ -1,6 +1,6 @@
 {
   "name": "archdatacore",
-  "version": "3.0.0-alpha.99",
+  "version": "3.0.0-alpha.100",
   "description": "Providing Data Core Library",
   "main": "./lib/index.js",
   "typings": "./typings/index.d.ts",
@@ -20,9 +20,6 @@
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "devDependencies": {
-    "@types/node": "*",
-    "shelljs": "*",
-    "tslint": "*",
-    "typescript": "*"
+    "archdevts": "20.9.1"
   }
 }
