@@ -28,7 +28,6 @@ export const createMongoDBContext = (Config: IMongoDBConnectorConfig, Options: I
 
   const ConnectCollection = async (collection: string) => {
     const DBInstance = await ConnectDB();
-    await DBInstance.createCollection(collection);
 
     return DBInstance.collection(collection);
   };
