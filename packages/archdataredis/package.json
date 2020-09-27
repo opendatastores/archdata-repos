@@ -1,6 +1,6 @@
 {
   "name": "archdataredis",
-  "version": "3.0.0-alpha.101",
+  "version": "3.0.0-alpha.102",
   "description": "Providing Data Stores using Redis",
   "main": "./lib/index.js",
   "typings": "./typings/index.d.ts",
@@ -30,7 +30,7 @@
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "dependencies": {
-    "archdatacore": "^3.0.0-alpha.101",
+    "archdatacore": "^3.0.0-alpha.102",
     "ioredis": "4.17.3"
   },
   "devDependencies": {

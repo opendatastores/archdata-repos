@@ -10,8 +10,9 @@ export const createMongoDBContext = (Config: IMongoDBConnectorConfig, Options: I
     return async () => {
       if (_DBClient === undefined) {
         const URI = Config.connection;
-        _DBClient = new MongoClient(URI, Options);
-        await _DBClient.connect();
+        const client = new MongoClient(URI, Options);
+        await client.connect();
+        _DBClient = client;
       }
 
       return _DBClient;
