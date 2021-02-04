@@ -44,9 +44,9 @@ export const DataStores = {
     return INSTANCE[name];
   },
   provideCollectionConnect: <Collection = any>(StoresConnect: string | IStoresConnect, collection: string) => ((): ICollectionConnect<Collection> => {
-    type THandler = (collection: Collection) => Promise<void>;
+    type HandlerFunction = (collection: Collection) => Promise<void>;
     let COLLECTION: Collection;
-    const Handlers: THandler[] = [];
+    const Handlers: HandlerFunction[] = [];
 
     const CollectionConnect: ICollectionConnect<Collection> = {
       connect: async (): Promise<Collection> => {
