@@ -1,3 +1,5 @@
+import { IRedisConnectOptions } from "./IRedisConnectOptions";
+
 export interface IRedisConnectorConfig {
   connection: {
     host?: string;
@@ -6,4 +8,5 @@ export interface IRedisConnectorConfig {
     host?: string;
     port?: number;
   };
+  options?: IRedisConnectOptions;
 }

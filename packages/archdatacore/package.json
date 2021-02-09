@@ -20,6 +20,6 @@
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "devDependencies": {
-    "archdevts": "20.12.19"
+    "archdevts": "21.1.1"
   }
 }

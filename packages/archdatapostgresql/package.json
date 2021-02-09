@@ -30,13 +30,13 @@
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "dependencies": {
-    "archdatacore": "^3.0.0-alpha.103",
+    "archdatacore": "3.0.0-alpha.103",
     "pg": "8.5.1",
     "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@types/pg": "7.14.7",
+    "@types/pg": "7.14.9",
     "@types/uuid": "8.3.0",
-    "archdevts": "20.12.19"
+    "archdevts": "21.1.1"
   }
 }

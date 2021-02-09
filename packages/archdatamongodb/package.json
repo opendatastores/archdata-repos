@@ -30,11 +30,11 @@
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "dependencies": {
-    "archdatacore": "^3.0.0-alpha.103",
-    "mongodb": "3.6.3"
+    "archdatacore": "3.0.0-alpha.103",
+    "mongodb": "3.6.4"
   },
   "devDependencies": {
-    "@types/mongodb": "3.6.3",
-    "archdevts": "20.12.19"
+    "@types/mongodb": "3.6.6",
+    "archdevts": "21.1.1"
   }
 }

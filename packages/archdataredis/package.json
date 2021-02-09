@@ -30,11 +30,11 @@
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "dependencies": {
-    "archdatacore": "^3.0.0-alpha.103",
-    "ioredis": "4.19.4"
+    "archdatacore": "3.0.0-alpha.103",
+    "ioredis": "4.22.0"
   },
   "devDependencies": {
-    "@types/ioredis": "4.17.10",
-    "archdevts": "20.12.19"
+    "@types/ioredis": "4.19.3",
+    "archdevts": "21.1.1"
   }
 }
