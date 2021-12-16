@@ -31,10 +31,9 @@
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "dependencies": {
     "archdatacore": "3.0.0-alpha.104",
-    "mongodb": "3.6.4"
+    "mongodb": "4.2.1"
   },
   "devDependencies": {
-    "@types/mongodb": "3.6.6",
     "archdevts": "21.1.1"
   }
 }

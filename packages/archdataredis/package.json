@@ -31,10 +31,10 @@
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "dependencies": {
     "archdatacore": "3.0.0-alpha.104",
-    "ioredis": "4.22.0"
+    "ioredis": "4.28.2"
   },
   "devDependencies": {
-    "@types/ioredis": "4.19.3",
+    "@types/ioredis": "4.28.2",
     "archdevts": "21.1.1"
   }
 }

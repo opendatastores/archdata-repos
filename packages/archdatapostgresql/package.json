@@ -31,12 +31,12 @@
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "dependencies": {
     "archdatacore": "3.0.0-alpha.104",
-    "pg": "8.5.1",
+    "pg": "8.7.1",
     "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@types/pg": "7.14.9",
-    "@types/uuid": "8.3.0",
+    "@types/pg": "8.6.1",
+    "@types/uuid": "8.3.3",
     "archdevts": "21.1.1"
   }
 }
