@@ -1,6 +1,6 @@
 {
   "name": "archdatastores",
-  "version": "3.0.0-alpha.104",
+  "version": "3.0.0",
   "description": "Providing Data Stores Library",
   "main": "./lib/index.js",
   "typings": "./typings/index.d.ts",
@@ -30,7 +30,7 @@
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "dependencies": {
-    "archdatacore": "3.0.0-alpha.104"
+    "archdatacore": "3.0.0"
   },
   "devDependencies": {
     "archdevts": "21.1.1"
