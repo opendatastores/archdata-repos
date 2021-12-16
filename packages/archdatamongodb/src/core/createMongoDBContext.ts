@@ -1,4 +1,4 @@
-import { MongoClient, ObjectID } from "mongodb";
+import { MongoClient, ObjectId } from "mongodb";
 import { IMongoDBConnectOptions } from "../IMongoDBConnectOptions";
 import { IMongoDBConnectorConfig } from "../IMongoDBConnectorConfig";
 import { IMongoDBDataContext } from "../IMongoDBDataContext";
@@ -39,7 +39,7 @@ export const createMongoDBContext = (Config: IMongoDBConnectorConfig, Options: I
     db: async () =>
       ConnectDB(),
     newID: () =>
-      new ObjectID(),
+      new ObjectId(),
     close: async () => {
       const client = await ConnectClient();
       client.close(true);
