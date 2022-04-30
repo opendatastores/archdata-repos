@@ -31,17 +31,13 @@ export const createDBAdmin = (config: IPostgreSQLConnectorConfig): IDBAdmin => (
   let ClientInstance: Client | undefined;
 
   const resolveInstance = async () => {
-    try {
-      if (ClientInstance === undefined) {
-        const instance = new Client(adminConfig(Config));
-        await instance.connect();
-        ClientInstance = instance;
-      }
-
-      return ClientInstance;
-    } catch (error) {
-      throw error;
+    if (ClientInstance === undefined) {
+      const instance = new Client(adminConfig(Config));
+      await instance.connect();
+      ClientInstance = instance;
     }
+
+    return ClientInstance;
   };
 
   const end = async () => {

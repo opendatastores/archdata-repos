@@ -1,4 +1,4 @@
-import * as IORedis from "ioredis";
+import IORedis, { Cluster } from "ioredis";
 import { IRedisConnectOptions } from "../IRedisConnectOptions";
 import { IRedisConnectorConfig } from "../IRedisConnectorConfig";
 import { IRedisDataContext } from "../IRedisDataContext";
@@ -11,7 +11,7 @@ class NotSupportedFunctionError extends Error {
 
 export const createRedisContext = (Config: IRedisConnectorConfig, Options: IRedisConnectOptions) => {
   const ConnectClient = (() => {
-    let _DBClient: IORedis.Cluster | IORedis.Redis;
+    let _DBClient: IORedis | Cluster;
 
     return async () => {
       if (_DBClient === undefined) {
@@ -19,7 +19,12 @@ export const createRedisContext = (Config: IRedisConnectorConfig, Options: IRedi
         if (Array.isArray(connection)) {
           _DBClient = new IORedis.Cluster(connection, Options);
         } else {
-          _DBClient = new IORedis(connection.port, connection.host, Options);
+          const { port = 6379, host } = connection;
+          if (host) {
+            _DBClient = new IORedis(port, host, Options);
+          } else {
+            _DBClient = new IORedis(port, Options);
+          }
         }
       }
 

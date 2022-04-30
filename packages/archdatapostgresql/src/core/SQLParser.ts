@@ -3,7 +3,7 @@ import { IPostgreSQLOptions } from "../IPostgreSQLOptions";
 type Item = { [key: string]: any; }
 
 export const SQLParser = {
-  insertItem: (collection: string, item: Item, options?: any) => {
+  insertItem: (collection: string, item: Item) => {
     const { columns, orders, values } = SQLParser.parseFromItem(item);
 
     return {
