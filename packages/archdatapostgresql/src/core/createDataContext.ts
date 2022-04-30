@@ -43,8 +43,8 @@ export const createDataContext = (config: IPostgreSQLConnectorConfig, opts: Pool
 
         await Promise.all(ps);
       },
-      createItem: async (collection, item, options = {}) => {
-        const { text, values } = SQLParser.insertItem(collection, item, options);
+      createItem: async (collection, item) => {
+        const { text, values } = SQLParser.insertItem(collection, item);
         const client = clientPoolProxy.get();
         const result = await client.query(text, values);
 

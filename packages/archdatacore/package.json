@@ -5,14 +5,15 @@
   "main": "./lib/index.js",
   "typings": "./typings/index.d.ts",
   "scripts": {
+    "dev": "npm run cleanup && nodemon -e ts --watch src --exec 'npm run build-ts && node ./lib/index.js'",
     "build": "npm run cleanup && npm run build-ts",
     "build-es5": "npm run cleanup && npm run build-ts-es5",
     "build-es6": "npm run cleanup && npm run build-ts-es6",
-    "build-ts": "npm run tslint && tsc",
-    "build-ts-es5": "npm run tslint && tsc -p _tsconfigs/es5.tsconfig.json",
-    "build-ts-es6": "npm run tslint && tsc -p _tsconfigs/es6.tsconfig.json",
-    "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "tslint-fix": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build-ts": "npm run lint && tsc",
+    "build-ts-es5": "npm run lint && tsc -p _tsconfigs/es5.tsconfig.json",
+    "build-ts-es6": "npm run lint && tsc -p _tsconfigs/es6.tsconfig.json",
+    "lint": "eslint ./src --ext .ts",
+    "lint-fix": "eslint ./src --ext .ts --fix",
     "cleanup": "node _scripts/cleanup",
     "aftertests": "node _scripts/aftertests",
     "prepublishOnly": "npm run build"
@@ -20,6 +21,6 @@
   "license": "MIT",
   "repository": "git+https://github.com/opendatastores/archdata-repos",
   "devDependencies": {
-    "archdevts": "21.1.1"
+    "archdevts": "22.4.1"
   }
 }
